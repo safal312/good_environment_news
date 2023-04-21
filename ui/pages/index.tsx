@@ -11,7 +11,7 @@ export default function Home() {
         <title>Good Environment News</title>
         <meta name="description" content="Collection of only good environment news" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Navbar />
       <Box w={"80%"} m={"0 auto"} mt={4}>
