@@ -1,10 +1,13 @@
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 
 import Navbar from '@/components/Navbar'
 import Latest from '@/components/Latest'
 import { Box } from '@chakra-ui/react'
 
-export default function Home() {
+import { getLatestArticles, LatestArticleProps } from '@/lib/api/articles'
+
+export default function Home({ latestArticles }: {latestArticles: LatestArticleProps[]}) {
   return (
     <>
       <Head>
@@ -15,8 +18,19 @@ export default function Home() {
       </Head>
       <Navbar />
       <Box w={"80%"} m={"0 auto"} mt={4}>
-        <Latest />
+        <Latest latestArticles={latestArticles} />
       </Box>
     </>
   )
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const results = await getLatestArticles();
+
+  return {
+    props: {
+      latestArticles: results
+    },
+    revalidate: 10
+  };
+};
