@@ -5,9 +5,9 @@ import { LatestArticleProps } from '@/lib/api/articles';
 
 const NewsItem = ({ article } : {article : LatestArticleProps}) => {
     return <Card w="100%">
-        <CardBody>
+        <CardBody borderBottom={article.scores.compound > 0.2 ? "4px": "0px "} borderColor="green.200">
             <Image
-            src={"https://aljazeera.com/" + article.image}
+            src={article.image}
             alt=''
             borderRadius='lg'
             w="100%"
@@ -17,6 +17,7 @@ const NewsItem = ({ article } : {article : LatestArticleProps}) => {
                     <Text>
                         {article.body}
                     </Text>
+                    <Text size="xs" color="gray.500">Source: {article.source}</Text>
                 </Stack>
         </CardBody>
         <Divider />
