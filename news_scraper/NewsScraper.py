@@ -70,6 +70,31 @@ class NewsScraper:
             self.scraped_data[i]["scores"] = scores
         return self
     
+    def scrape_khaleej_times(self):
+        driver = self.driver.get("https://www.khaleejtimes.com/uae/environment")
+
+        articles = self.driver.find_elements(By.TAG_NAME, "article")
+
+        data = []
+
+        for item in articles:
+            try:
+                article = Article()
+
+                article['link'] = item.find_element(By.TAG_NAME, "a").get_attribute("href")
+                article['image'] = item.find_element(By.TAG_NAME, "img").get_attribute("data-srcset")
+                article['title'] = item.find_element(By.CLASS_NAME, "post-title").text
+                article['body'] = item.find_element(By.CLASS_NAME, "post-summary").text
+                article['keywords'].extend(["uae", "environment"])
+                article['source'] = "Khaleej Times"
+
+                data.append(article)
+            except:
+                print("Issue in scraping Khaleej Times article")
+        
+        self.scraped_data.extend(data)
+        return self
+    
     def scrape_the_national(self):
         driver = self.driver.get("https://www.thenationalnews.com/climate/environment/")
 

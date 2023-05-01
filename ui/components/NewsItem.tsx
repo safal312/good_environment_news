@@ -10,7 +10,7 @@ const NewsItem = ({ article, threshold } : {article : LatestArticleProps, thresh
         <CardBody bg={article.scores.compound >= threshold ? "#dbffe6": ""}>
             <Image
             src={article.image}
-            fallbackSrc='https://via.placeholder.com/100'
+            fallbackSrc='https://images.unsplash.com/photo-1497211419994-14ae40a3c7a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100'
             alt=''
             borderRadius='lg'
             w="100%"

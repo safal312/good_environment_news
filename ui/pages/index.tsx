@@ -17,7 +17,7 @@ export default function Home({ latestArticles }: {latestArticles: LatestArticleP
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Navbar  />
-      <Box w={"80%"} m={"0 auto"} mt={4}>
+      <Box w={["90%","90%","80%"]} m={"0 auto"} mt={4}>
         {/* <Latest latestArticles={latestArticles.filter(article => article.scores.compound > 0)} /> */}
         <Latest latestArticles={latestArticles} />
       </Box>

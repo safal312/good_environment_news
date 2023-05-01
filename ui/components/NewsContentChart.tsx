@@ -2,6 +2,7 @@ import Chart from 'chart.js/auto'
 import { ChartItem, ChartData} from 'chart.js/auto'
 import { MutableRefObject, useRef, useEffect, LegacyRef } from 'react'
 import { LatestArticleProps } from "@/lib/api/articles";
+import { SimpleGrid } from '@chakra-ui/react';
 
 interface DataItem {
     [key: string]: LatestArticleProps[]
@@ -57,7 +58,7 @@ const NewsContentChart = ({ data, threshold }: {data: LatestArticleProps[], thre
                         text: "Count of Positive vs Negative Environmental News in Different Sources"
                     }
                 },
-                aspectRatio: 1,
+                aspectRatio: 1.25,
                 scales: {
                     x: {
                         stacked: true,
@@ -77,7 +78,7 @@ const NewsContentChart = ({ data, threshold }: {data: LatestArticleProps[], thre
     
     return (
         <>
-            <canvas style={{maxHeight: "500px"}} ref={chartRef as LegacyRef<HTMLCanvasElement>}></canvas>
+            <canvas style={{ padding:"1em"}} ref={chartRef as LegacyRef<HTMLCanvasElement>}></canvas>
         </>
     )
 }
