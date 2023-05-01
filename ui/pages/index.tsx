@@ -31,7 +31,8 @@ export default function Home({ latestArticles }: {latestArticles: LatestArticleP
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const results = await getLatestArticles();
+  const res = await getLatestArticles();
+  const results = JSON.parse(JSON.stringify(res))
 
   return {
     props: {

@@ -10,10 +10,6 @@ interface DataItem {
 const NewsContentChart = ({ data, threshold }: {data: LatestArticleProps[], threshold: number}) => {
     const chartRef: MutableRefObject<ChartItem | null> = useRef(null)
 
-    // Count the number of objects that cross the threshold
-    const aboveThreshold = data.filter(obj => obj.scores.compound >= threshold).length;
-    const belowThreshold = data.length - aboveThreshold;
-
     const groupBySources: {[key: string]: LatestArticleProps[]} = data.reduce((returnObject, dataObject) => {
         if (returnObject[dataObject.source]) {
             returnObject[dataObject.source].push(dataObject)
@@ -39,13 +35,13 @@ const NewsContentChart = ({ data, threshold }: {data: LatestArticleProps[], thre
                 label: 'Positive News',
                 stack: 'Stack 0',
                 data: Object.values(countSources).map((item) => item[0]),
-                backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                backgroundColor: '#81E6D9'
             },
             {
                 label: 'Negative News',
                 stack: 'Stack 1',
                 data: Object.values(countSources).map((item) => item[1]),
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                backgroundColor: '#276749',
             }
         ]
     };
@@ -58,7 +54,7 @@ const NewsContentChart = ({ data, threshold }: {data: LatestArticleProps[], thre
                 plugins: {
                     title: {
                         display: true,
-                        text: "Count of Positive vs Negative News in Different Sources"
+                        text: "Count of Positive vs Negative Environmental News in Different Sources"
                     }
                 },
                 aspectRatio: 1,

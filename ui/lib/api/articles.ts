@@ -16,12 +16,15 @@ export interface LatestArticleProps {
     date: string;
     scores: ScoresProps;
     source: string;
+    keywords: Array<string>;
+    greenwashing: number;
   }
 
 export async function getLatestArticles(): Promise<LatestArticleProps[]> {
     const client = await clientPromise;
     const collection= client.db(process.env.DB).collection(process.env.COLLECTION as string)
     const result = await collection.find<LatestArticleProps>({}).toArray()
+
     return result.map((article) => ({
         _id: article._id.toString(),
         title: article.title,
@@ -30,7 +33,9 @@ export async function getLatestArticles(): Promise<LatestArticleProps[]> {
         image: article.image,
         date: article.date,
         scores: article.scores,
-        source: article.source
+        source: article.source,
+        keywords: article.keywords ? article.keywords : [],
+        greenwashing: article.greenwashing
       }));
 }
   
