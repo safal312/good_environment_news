@@ -2,7 +2,9 @@ import Chart from 'chart.js/auto'
 import { ChartItem, ChartData} from 'chart.js/auto'
 import { MutableRefObject, useRef, useEffect, LegacyRef } from 'react'
 import { LatestArticleProps } from "@/lib/api/articles";
-import { SimpleGrid } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+
+import { useState } from 'react';
 
 interface DataItem {
     [key: string]: LatestArticleProps[]
@@ -16,7 +18,8 @@ interface KeywordCount {
 
 const KeywordPieChart = ({ data, threshold, keyword }: {data: LatestArticleProps[], threshold: number, keyword: string}) => {
     const chartRef: MutableRefObject<ChartItem | null> = useRef(null)
-
+    const [showMessage, setShowMessage] = useState(false)
+ 
     const resultItem: KeywordCount = {
         keyword: keyword,
         positive: 0,
@@ -34,6 +37,7 @@ const KeywordPieChart = ({ data, threshold, keyword }: {data: LatestArticleProps
         }
     })
 
+
     const chartData: ChartData<'pie'> = {
         labels: ["Positive", "Negative"],
         datasets: [
@@ -47,6 +51,7 @@ const KeywordPieChart = ({ data, threshold, keyword }: {data: LatestArticleProps
     };
 
     useEffect(() => {
+        setShowMessage(resultItem.positive === 0 && resultItem.negative === 0)
         const chart = new Chart(chartRef.current as HTMLCanvasElement, {
             type: 'pie',
             data: chartData,
@@ -68,7 +73,7 @@ const KeywordPieChart = ({ data, threshold, keyword }: {data: LatestArticleProps
     
     return (
         <>
-            
+            {showMessage && <Text color="gray.400" my={10} align={"center"} fontSize={"xl"}>No articles found with that keyword</Text>}
             <canvas style={{padding: "1em"}} ref={chartRef as LegacyRef<HTMLCanvasElement>}></canvas>
         </>
     )

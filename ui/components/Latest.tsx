@@ -1,6 +1,6 @@
 import { Spinner, Text, Link, Center , Select, Flex, Switch, Stack, Spacer, Divider, Button, useDisclosure, Alert, AlertIcon} from "@chakra-ui/react"
 import { Grid, SimpleGrid, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon, WarningIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 
 import NewsItem from "./NewsItem";
@@ -45,7 +45,7 @@ const Latest = ({ latestArticles }: {latestArticles: LatestArticleProps[]}) => {
         const new_articles = latestArticles.filter(article => {
             // not all articles have the keywords attribute yet
             const keywordIncluded = article.title.toLowerCase().includes(value) || 
-                article.body.toLowerCase().includes(value)  || article.source.toLowerCase().includes(value) ||
+                article.body.toLowerCase().includes(value) || article.source.toLowerCase().includes(value) ||
                 article.keywords.includes(value)
             return article.scores.compound >= threshold && keywordIncluded
         })
@@ -94,7 +94,7 @@ const Latest = ({ latestArticles }: {latestArticles: LatestArticleProps[]}) => {
             <Alert status='info' rounded="lg">
                 <AlertIcon />
                 <Text>
-                    Look out for greenwashing campaigns. Items marked with warning sign below could potentially be greenwashing campaigns.{' '}<Link color={"teal.800"} textDecoration={"underline"} href={"https://en.wikipedia.org/wiki/Greenwashing"} isExternal> Learn more about greenwashing here.</Link>
+                    Look out for greenwashing campaigns. Items marked <WarningIcon borderRadius={"50%"} bg={"white"} fontSize={"2xl"} color="yellow.400" /> below could potentially be greenwashing campaigns.{' '}<Link color={"teal.800"} textDecoration={"underline"} href={"https://en.wikipedia.org/wiki/Greenwashing"} isExternal> Learn more about greenwashing here.</Link>
                 </Text>
             </Alert>
             <Spacer />

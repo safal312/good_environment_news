@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, Text } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, Text, Tooltip } from '@chakra-ui/react'
 import { Image, Stack, Heading, Divider } from "@chakra-ui/react";
 import { WarningIcon } from '@chakra-ui/icons';
 
@@ -6,7 +6,7 @@ import { LatestArticleProps } from '@/lib/api/articles';
 
 const NewsItem = ({ article, threshold } : {article : LatestArticleProps, threshold: number}) => {
     return <Card w="100%" position={"relative"}>
-        {article.greenwashing == 1 && <WarningIcon position={"absolute"} right={-1} top={-1} w={8} h={8} color="yellow.400" />}
+        {article.greenwashing == 1 && <Tooltip label="Potential Greenwashing"><WarningIcon cursor={"auto"} position={"absolute"} right={-1} top={-1} w={8} h={8} color="yellow.400" /></Tooltip>}
         <CardBody bg={article.scores.compound >= threshold ? "#dbffe6": ""}>
             <Image
             src={article.image}

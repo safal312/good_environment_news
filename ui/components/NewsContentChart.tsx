@@ -73,7 +73,7 @@ const NewsContentChart = ({ data, threshold }: {data: LatestArticleProps[], thre
         return () => {
             chart.destroy();
           };
-    }, [chartData]);
+    }, []);
     
     
     return (
