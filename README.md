@@ -1,6 +1,10 @@
 # Good Environment News
 Link: https://good-environment-news.vercel.app/
 
+![](dashboard.png)
+<center><em>Fig: Dashboard in the website showing share of positve and negative news in different sources</em></center>
+
+<hr />
 
 A portal that gives you “positive” news from multiple sources. This project focuses specifically on select popular international news sources and some UAE sources for specific case study. This project will also act as an exploration of the different narratives present abundantly in popular news across different regions. The abundance of articles or lack thereof will speak to the popularity of the declensionist narrative in different regions. 
 Moreover, it acts as a way of reflecting the general sentiment on the matter of environmental crisis in different regions.
