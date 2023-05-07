@@ -70,6 +70,98 @@ class NewsScraper:
             self.scraped_data[i]["scores"] = scores
         return self
     
+    def scrape_scmp(self):
+        driver = self.driver.get("https://www.scmp.com/topics/environment")
+
+        article_div = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div/section/div/div[4]/div[1]")
+        articles = article_div.find_elements(By.XPATH, "./*")[1:]
+
+        data = []
+
+        for item in articles:
+            try:
+                article = Article()
+                # print(item.get_attribute("outerHTML"))
+                h2s = item.find_elements(By.TAG_NAME, "h2")
+
+                if h2s: 
+                    article['title'] = h2s[0].text
+                else: continue
+
+                article['image'] = item.find_element(By.TAG_NAME, "img").get_attribute("src")
+                article['link'] = "https://www.scmp.com" + item.find_element(By.TAG_NAME, "a").get_attribute("href")
+                article['date'] = item.find_element(By.TAG_NAME, "time").text
+                article['body'] = item.find_element(By.TAG_NAME, "p").text
+                article['keywords'].extend(['scmp','asia','asian'])
+                article['source'] = "South China Morning Post"
+
+                data.append(article)
+            except:
+                print("Issue in SCMP article")
+
+        self.scraped_data.extend(data)
+        return self
+
+    def scrape_euobserver(self):
+        driver = self.driver.get("https://euobserver.com/green-economy")
+
+        articles = self.driver.find_elements(By.TAG_NAME, "article")
+
+        data = []
+
+        for item in articles:
+            try:
+                article = Article()
+
+                ol = item.find_elements(By.TAG_NAME, "ol")
+                if ol: continue
+
+                article['link'] = "https://euobserver.com/" + item.find_element(By.TAG_NAME, "a").get_attribute("href")
+                
+                image = item.find_elements(By.TAG_NAME, "img")
+                if image: 
+                    article['title'] = item.find_elements(By.TAG_NAME, "a")[1].text
+                    article['image'] = image[0].get_attribute("src")
+                else:
+                    article['title'] = item.find_elements(By.TAG_NAME, "a")[0].text
+                article['date'] = item.find_element(By.TAG_NAME, "time").text
+                article['body'] = item.find_element(By.TAG_NAME, "p").text
+
+                article['keywords'].extend(['eu', 'europe', 'green economy', 'green'])
+                article['source'] = "euobserver"
+
+                data.append(article)
+            except:
+                print("Issue in EUObserver")
+        
+        self.scraped_data.extend(data)
+        return self
+
+    def scrape_allafrica(self):
+        driver = self.driver.get("https://allafrica.com/environment/")
+
+        main_articles = self.driver.find_elements(By.CLASS_NAME, "foundation")
+
+        data = []
+
+        for item in main_articles:
+            try:
+                article = Article()
+
+                article['link'] = item.find_element(By.TAG_NAME, "a").get_attribute("href")
+                article['title'] = item.find_element(By.TAG_NAME, "a").get_attribute("title")
+                article['image'] = item.find_element(By.TAG_NAME, "img").get_attribute("src")
+                article['keywords'].extend(["africa", "african", "environment"])
+                
+                article['source'] = "allAfrica"
+
+                data.append(article)
+            except:
+                print("Issue in All Africa article")
+        
+        self.scraped_data.extend(data)
+        return self
+    
     def scrape_khaleej_times(self):
         driver = self.driver.get("https://www.khaleejtimes.com/uae/environment")
 
@@ -226,6 +318,7 @@ class NewsScraper:
 
                 date = item.find("img")
                 article['image'] = "https://aljazeera.com" + date.get("src")
+                article['keywords'].extend(["middle east", "mena"])
                 article["source"] = "Aljazeera"
 
                 data.append(article)
