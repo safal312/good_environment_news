@@ -33,7 +33,7 @@ const SourcesPieChart = ({ data, threshold }: {data: LatestArticleProps[], thres
             {
                 label: 'Share of News Sources',
                 data: Object.values(countSources),
-                backgroundColor: ["#B2F5EA", "#4FD1C5", "#319795", "#285E61", "#1D4044"],
+                backgroundColor: ["#B2F5EA", "#4FD1C5", "#319795", "#285E61", "#1D4044", "#68D391", "#38A169", "#276749"],
                 hoverOffset: 4
             }
         ]
