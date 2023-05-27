@@ -73,7 +73,7 @@ class NewsScraper:
     def scrape_scmp(self):
         driver = self.driver.get("https://www.scmp.com/topics/environment")
 
-        article_div = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div/section/div/div[4]/div[1]")
+        article_div = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/section/div/div[4]/div[1]")
         articles = article_div.find_elements(By.XPATH, "./*")[1:]
 
         data = []
@@ -237,7 +237,7 @@ class NewsScraper:
 
         main = self.driver.find_element(By.ID, "stream-panel")
         articles = main.find_elements(By.TAG_NAME, "li")
-
+        
         data = []
 
         for item in articles:
@@ -246,7 +246,7 @@ class NewsScraper:
             try:
                 article['date'] = item.find_elements(By.TAG_NAME, "span")[-1].text
                 article['link'] = "https://www.nytimes.com" + item.find_element(By.TAG_NAME, "a").get_attribute("href")
-                article['title'] = item.find_element(By.TAG_NAME, "h2").text
+                article['title'] = item.find_element(By.TAG_NAME, "h3").text
                 article['image'] = item.find_element(By.TAG_NAME, "img").get_attribute("src")
                 article['body'] = item.find_element(By.TAG_NAME, "p").text
                 article['keywords'].extend(["environment", "energy", "business", "nyt"])
